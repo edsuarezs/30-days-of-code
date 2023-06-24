@@ -6,7 +6,8 @@ type person struct {
 	age int
 }
 
-func (p person) NewPerson(initialAge int) person {
+func NewPerson(initialAge int) person {
+	p := person{age: initialAge}
 	//Add some more code to run some checks on initialAge
 	p.age = initialAge
 	if p.age < 0 {
@@ -16,7 +17,7 @@ func (p person) NewPerson(initialAge int) person {
 	return p
 }
 
-func (p person) amIOld() {
+func (p *person) amIOld() {
 	//Do some computation in here and print out the correct statement to the console
 	switch {
 	case p.age < 13:
@@ -28,10 +29,9 @@ func (p person) amIOld() {
 	}
 }
 
-func (p person) yearPasses() person {
+func (p *person) yearPasses() {
 	//Increment the age of the person in here
 	p.age++
-	return p
 }
 
 func main() {
@@ -41,11 +41,10 @@ func main() {
 
 	for i := 0; i < T; i++ {
 		fmt.Scan(&age)
-		p := person{age: age}
-		p = p.NewPerson(age)
+		p := NewPerson(age)
 		p.amIOld()
 		for j := 0; j < 3; j++ {
-			p = p.yearPasses()
+			p.yearPasses()
 		}
 		p.amIOld()
 		fmt.Println()
